@@ -1,0 +1,11 @@
+@PracticalAPI_HostAddress = http://localhost:5171
+
+GET {{PracticalAPI_HostAddress}}/Examples/Greeting
+Accept: application/json
+
+###
+
+GET {{PracticalAPI_HostAddress}}/Examples/Greeting2
+Accept: application/json
+
+###

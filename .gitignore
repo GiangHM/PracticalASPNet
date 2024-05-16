@@ -1,0 +1,9 @@
+
+.vs/PracticalASPNet/config/applicationhost.config
+*.v2
+*.vsidx
+.vs/PracticalASPNet/v17/.suo
+.vs/PracticalASPNet/v17/DocumentLayout.json
+/PracticalAPI/obj
+/PracticalAPI/Properties
+PracticalAPI/PracticalAPI.csproj.user
