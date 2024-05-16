@@ -2,16 +2,24 @@
 
 namespace PracticalAPI.Services
 {
-    public class Welcoming : IWelcoming
+
+    /// <summary>
+    /// Using primary constructor of C# 12
+    /// </summary>
+    /// <param name="greeting"></param>
+    public class Welcoming([FromKeyedServices("FormalGreeting")] IGreeting greeting
+        , IKeyedServiceProvider keyedServiceProvider)
+        : IWelcoming
     {
-        private readonly IGreeting _greeting;
-        public Welcoming([FromKeyedServices("FormalGreeting")]IGreeting greeting)
-        {
-            _greeting = greeting;
-        }
+        
         public string Welcome(string name, string message)
         {
-            return $"{_greeting.Hello(name)}, {message}";
+            return $"{greeting.Hello(name)}, {message}";
+        }
+        public string Welcome2(string name, string type)
+        {
+            var service = keyedServiceProvider.GetRequiredKeyedService<IGreeting>(type);
+            return service.Hello(name);
         }
     }
 }
