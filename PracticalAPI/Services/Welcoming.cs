@@ -16,4 +16,6 @@ namespace PracticalAPI.Services
             return $"{greeting.Hello(name)}, {message}";
         }
     }
+
+
 }
