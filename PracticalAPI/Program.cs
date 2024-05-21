@@ -1,40 +1,17 @@
 using Microsoft.AspNetCore.RateLimiting;
 using PracticalAPI.CustomMiddleware;
 using PracticalAPI.DIKeyedServices;
+using PracticalAPI.RateLimitMiddleware.Extensions;
 using PracticalAPI.Services;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRateLimiter(options =>
+// Read from configuration
+builder.Services.AddAppRateLimit(option =>
 {
-    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
-        RateLimitPartition.GetFixedWindowLimiter(
-            partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
-            factory: partition => new FixedWindowRateLimiterOptions
-            {
-                AutoReplenishment = true,
-                PermitLimit = 10,
-                QueueLimit = 0,
-                Window = TimeSpan.FromMinutes(1)
-            }));
-});
-
-builder.Services.AddRateLimiter(options =>
-{
-    options.AddFixedWindowLimiter("Api", options =>
-    {
-        options.AutoReplenishment = true;
-        options.PermitLimit = 10;
-        options.Window = TimeSpan.FromMinutes(1);
-    });
-
-    options.AddFixedWindowLimiter("Web", options =>
-    {
-        options.AutoReplenishment = true;
-        options.PermitLimit = 10;
-        options.Window = TimeSpan.FromMinutes(1);
-    });
+    option.PermitLimit = 9;
+    option.QueueLimit = 10;
 });
 
 // Add services to the container.
@@ -60,6 +37,10 @@ if (app.Environment.IsDevelopment())
 app.UseCustomExceptionHandlers();
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseRateLimiter();
 
 app.UseAuthorization();
 
