@@ -2,6 +2,7 @@
 {
     public interface IWelcoming
     {
-        string Welcome(string name, string message);
+        string WelcomeFormalWay(string name, string message);
+        string WelcomeInFormalWay(string name);
     }
 }
