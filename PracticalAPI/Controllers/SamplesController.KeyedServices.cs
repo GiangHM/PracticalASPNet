@@ -2,7 +2,7 @@
 
 namespace PracticalAPI.Controllers
 {
-    public partial class ExamplesController
+    public partial class SamplesController
     {
         [HttpGet]
         [Route("Greeting")]

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.RateLimiting;
+using PracticalAPI.CustomMiddleware;
 using PracticalAPI.DIKeyedServices;
 using PracticalAPI.Services;
 using System.Threading.RateLimiting;
@@ -34,15 +35,7 @@ builder.Services.AddRateLimiter(options =>
         options.PermitLimit = 10;
         options.Window = TimeSpan.FromMinutes(1);
     });
-
-    //options.a
-
-    // ...
 });
-
-// ...
-
-
 
 // Add services to the container.
 builder.Services.AddKeyedTransient<IGreeting, FormalGreeting>("FormalGreeting");
@@ -62,6 +55,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Step 3: Use our custom middle in app
+app.UseCustomExceptionHandlers();
 
 app.UseHttpsRedirection();
 

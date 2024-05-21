@@ -6,12 +6,15 @@ namespace PracticalAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public partial class ExamplesController : ControllerBase
+    public partial class SamplesController : ControllerBase
     {
         readonly IWelcoming _welcoming;
-        public ExamplesController(IWelcoming welcoming)
+        ILogger<SamplesController> _logger;
+        public SamplesController(IWelcoming welcoming
+            , ILogger<SamplesController> logger)
         {
             _welcoming = welcoming;
+            _logger = logger;
         }
     }
 }

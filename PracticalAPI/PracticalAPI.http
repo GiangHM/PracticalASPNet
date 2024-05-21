@@ -9,3 +9,15 @@ GET {{PracticalAPI_HostAddress}}/Examples/Greeting2
 Accept: application/json
 
 ###
+
+
+GET {{PracticalAPI_HostAddress}}/Examples/ExceptionTest
+Accept: application/json
+
+###
+
+
+GET {{PracticalAPI_HostAddress}}/Examples/ExceptionTest2
+Accept: application/json
+
+###
