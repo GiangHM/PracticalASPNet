@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Net;
 
+// Best practice => don't use  a custom middleware for exception handler
+// => Should use IExceptionHanlder interface
 namespace PracticalAPI.CustomMiddleware
 {
     /// <summary>
