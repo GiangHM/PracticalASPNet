@@ -24,6 +24,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// I want to use request decompression to integrate with WMT 
+// Side note: => should be finish on AF HttpTrigger
+builder.Services.AddRequestDecompression();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +41,10 @@ if (app.Environment.IsDevelopment())
 app.UseCustomExceptionHandlers();
 
 app.UseHttpsRedirection();
+
+// I want to use request decompression to integrate with WMT 
+// Side note: => should be finish on AF HttpTrigger
+app.UseRequestDecompression();
 
 app.UseRouting();
 
