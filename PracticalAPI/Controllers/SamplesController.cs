@@ -9,12 +9,15 @@ namespace PracticalAPI.Controllers
     public partial class SamplesController : ControllerBase
     {
         readonly IWelcoming _welcoming;
-        ILogger<SamplesController> _logger;
+        readonly ILogger<SamplesController> _logger;
+        readonly IConfiguration _configuration;
         public SamplesController(IWelcoming welcoming
-            , ILogger<SamplesController> logger)
+            , ILogger<SamplesController> logger
+            , IConfiguration configuration)
         {
             _welcoming = welcoming;
             _logger = logger;
+            _configuration = configuration;
         }
     }
 }

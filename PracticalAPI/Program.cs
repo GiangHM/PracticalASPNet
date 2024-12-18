@@ -1,4 +1,6 @@
+using Azure.Identity;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Extensions.Configuration;
 using PracticalAPI.CustomMiddleware;
 using PracticalAPI.DIKeyedServices;
 using PracticalAPI.RateLimitMiddleware.Extensions;
@@ -7,12 +9,22 @@ using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Read from configuration
-builder.Services.AddAppRateLimit(option =>
+// AppConfiguration section
+var appConfigEndpoint = builder.Configuration.GetValue<string>("appConfigEndpoint");
+
+builder.Configuration.AddAzureAppConfiguration(option =>
 {
-    option.PermitLimit = 9;
-    option.QueueLimit = 10;
+    option.Connect(new Uri(appConfigEndpoint), new DefaultAzureCredential());
 });
+
+// Apply Rate limit
+// I want to apply it to Link Receiver
+
+//builder.Services.AddAppRateLimit(option =>
+//{
+//    option.PermitLimit = 9;
+//    option.QueueLimit = 10;
+//});
 
 // Add services to the container.
 builder.Services.AddKeyedTransient<IGreeting, FormalGreeting>("FormalGreeting");
@@ -48,7 +60,7 @@ app.UseRequestDecompression();
 
 app.UseRouting();
 
-app.UseRateLimiter();
+//app.UseRateLimiter();
 
 app.UseAuthorization();
 
