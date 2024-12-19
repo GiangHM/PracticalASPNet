@@ -1,6 +1,9 @@
 using Azure.Identity;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.AzureAppConfiguration;
+using Microsoft.Extensions.Options;
+using PracticalAPI.AppConfiguration;
 using PracticalAPI.CustomMiddleware;
 using PracticalAPI.DIKeyedServices;
 using PracticalAPI.RateLimitMiddleware.Extensions;
@@ -10,16 +13,11 @@ using System.Threading.RateLimiting;
 var builder = WebApplication.CreateBuilder(args);
 
 // AppConfiguration section
-var appConfigEndpoint = builder.Configuration.GetValue<string>("appConfigEndpoint");
-
-builder.Configuration.AddAzureAppConfiguration(option =>
-{
-    option.Connect(new Uri(appConfigEndpoint), new DefaultAzureCredential());
-});
+// With Sentinel key for refreshing configs
+builder.Configuration.AddAppConfigurationWithSentinelKey();
 
 // Apply Rate limit
 // I want to apply it to Link Receiver
-
 //builder.Services.AddAppRateLimit(option =>
 //{
 //    option.PermitLimit = 9;
@@ -57,6 +55,9 @@ app.UseHttpsRedirection();
 // I want to use request decompression to integrate with WMT 
 // Side note: => should be finish on AF HttpTrigger
 app.UseRequestDecompression();
+
+// With Sentinel key for refreshing configs
+app.UseAzureAppConfiguration();
 
 app.UseRouting();
 
