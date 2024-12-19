@@ -16,6 +16,14 @@ var builder = WebApplication.CreateBuilder(args);
 // With Sentinel key for refreshing configs
 builder.Configuration.AddAppConfigurationWithSentinelKey();
 
+// Use Azure Key Vault
+builder.Configuration.AddAzureKeyVault(
+    new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+    new DefaultAzureCredential(new DefaultAzureCredentialOptions
+    {
+        ManagedIdentityClientId = builder.Configuration["AzureADManagedIdentityClientId"]
+    }));
+
 // Apply Rate limit
 // I want to apply it to Link Receiver
 //builder.Services.AddAppRateLimit(option =>
