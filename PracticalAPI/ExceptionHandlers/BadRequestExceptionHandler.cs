@@ -4,7 +4,7 @@ using PracticalAPI.CustomExceptions;
 
 namespace PracticalAPI.ExceptionHandlers
 {
-    internal sealed class BadRequestExceptionHandler : IExceptionHandler
+    public class BadRequestExceptionHandler : IExceptionHandler
     {
         private readonly ILogger<BadRequestExceptionHandler> _logger;
 
