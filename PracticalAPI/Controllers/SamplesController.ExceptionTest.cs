@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PracticalAPI.CustomExceptions;
 
 namespace PracticalAPI.Controllers
 {
@@ -21,6 +22,12 @@ namespace PracticalAPI.Controllers
             }
             return Ok(_welcoming.WelcomeInFormalWay(family));
         }
-        
+
+        [HttpGet]
+        [Route("BadRequest")]
+        public ActionResult<string> BadRequestTest()
+        {
+            throw new BadRequestException("This is a bad request - test IExceptionHandler");
+        }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using PracticalAPI.AppConfiguration;
 using PracticalAPI.CustomMiddleware;
 using PracticalAPI.DIKeyedServices;
+using PracticalAPI.ExceptionHandlers;
 using PracticalAPI.RateLimitMiddleware.Extensions;
 using PracticalAPI.Services;
 using System.Threading.RateLimiting;
@@ -14,15 +15,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // AppConfiguration section
 // With Sentinel key for refreshing configs
-builder.Configuration.AddAppConfigurationWithSentinelKey();
+//builder.Configuration.AddAppConfigurationWithSentinelKey();
 
 // Use Azure Key Vault
-builder.Configuration.AddAzureKeyVault(
-    new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
-    new DefaultAzureCredential(new DefaultAzureCredentialOptions
-    {
-        ManagedIdentityClientId = builder.Configuration["AzureADManagedIdentityClientId"]
-    }));
+//builder.Configuration.AddAzureKeyVault(
+//    new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+//    new DefaultAzureCredential(new DefaultAzureCredentialOptions
+//    {
+//        ManagedIdentityClientId = builder.Configuration["AzureADManagedIdentityClientId"]
+//    }));
 
 // Apply Rate limit
 // I want to apply it to Link Receiver
@@ -44,9 +45,17 @@ builder.Services.AddSwaggerGen();
 
 // I want to use request decompression to integrate with WMT 
 // Side note: => should be finish on AF HttpTrigger
-builder.Services.AddRequestDecompression();
+//builder.Services.AddRequestDecompression();
+
+
+// User Exception Handler
+builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -56,22 +65,22 @@ if (app.Environment.IsDevelopment())
 }
 
 // Step 3: Use our custom middle in app
-app.UseCustomExceptionHandlers();
+//app.UseCustomExceptionHandlers();
 
 app.UseHttpsRedirection();
 
 // I want to use request decompression to integrate with WMT 
 // Side note: => should be finish on AF HttpTrigger
-app.UseRequestDecompression();
+//app.UseRequestDecompression();
 
 // With Sentinel key for refreshing configs
-app.UseAzureAppConfiguration();
+//app.UseAzureAppConfiguration();
 
 app.UseRouting();
 
 //app.UseRateLimiter();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 

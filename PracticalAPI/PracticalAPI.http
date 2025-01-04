@@ -1,23 +1,23 @@
-@PracticalAPI_HostAddress = http://localhost:5171
+@PracticalAPI_HostAddress =  https://localhost:63839
 
-GET {{PracticalAPI_HostAddress}}/Examples/Greeting
+GET {{PracticalAPI_HostAddress}}/Samples/Greeting
 Accept: application/json
 
 ###
 
-GET {{PracticalAPI_HostAddress}}/Examples/Greeting2
-Accept: application/json
-
-###
-
-
-GET {{PracticalAPI_HostAddress}}/Examples/ExceptionTest
+GET {{PracticalAPI_HostAddress}}/Samples/Greeting2
 Accept: application/json
 
 ###
 
 
-GET {{PracticalAPI_HostAddress}}/Examples/ExceptionTest2
+GET {{PracticalAPI_HostAddress}}/Samples/ExceptionTest
+Accept: application/json
+
+###
+
+
+GET {{PracticalAPI_HostAddress}}/Samples/BadRequest
 Accept: application/json
 
 ###
