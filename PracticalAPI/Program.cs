@@ -8,6 +8,7 @@ using PracticalAPI.CustomMiddleware;
 using PracticalAPI.DIKeyedServices;
 using PracticalAPI.ExceptionHandlers;
 using PracticalAPI.RateLimitMiddleware.Extensions;
+using PracticalAPI.RouterwareSamples;
 using PracticalAPI.Services;
 using System.Threading.RateLimiting;
 
@@ -82,6 +83,10 @@ app.UseRouting();
 
 //app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapAuthor("/author");
+});
 
 app.Run();
