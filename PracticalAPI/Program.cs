@@ -1,9 +1,11 @@
 using Azure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Extensions.Options;
 using PracticalAPI.AppConfiguration;
+using PracticalAPI.AuthorizationRequirementData;
 using PracticalAPI.CustomMiddleware;
 using PracticalAPI.DIKeyedServices;
 using PracticalAPI.ExceptionHandlers;
@@ -54,6 +56,9 @@ builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
+// Use Custom Authorization
+// builder.Services.AddSingleton<IAuthorizationHandler, UserFeatureAuthorizationHandler>();
+
 var app = builder.Build();
 
 app.UseExceptionHandler();
@@ -78,6 +83,10 @@ app.UseHttpsRedirection();
 //app.UseAzureAppConfiguration();
 
 app.UseRouting();
+
+//Use Authentication and Authorization
+// app.UseAuthentication();
+// app.UseAuthorization();
 
 //app.UseRateLimiter();
 
