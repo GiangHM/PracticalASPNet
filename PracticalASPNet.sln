@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticalAPI", "PracticalAPI\PracticalAPI.csproj", "{02AFEDB3-AA5B-4AB7-BF3D-3C64E49CDE7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "net9-practical-openapi", "net9-practical-openapi\net9-practical-openapi.csproj", "{C7031970-8F81-42B8-8656-C60126D75E71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{02AFEDB3-AA5B-4AB7-BF3D-3C64E49CDE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02AFEDB3-AA5B-4AB7-BF3D-3C64E49CDE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02AFEDB3-AA5B-4AB7-BF3D-3C64E49CDE7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7031970-8F81-42B8-8656-C60126D75E71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7031970-8F81-42B8-8656-C60126D75E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7031970-8F81-42B8-8656-C60126D75E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7031970-8F81-42B8-8656-C60126D75E71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
