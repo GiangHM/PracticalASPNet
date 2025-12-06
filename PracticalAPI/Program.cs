@@ -58,6 +58,7 @@ builder.Services.AddProblemDetails();
 
 // Use Custom Authorization
 // builder.Services.AddSingleton<IAuthorizationHandler, UserFeatureAuthorizationHandler>();
+// builder.Services.AddSingleton<IAuthorizationHandler, AdvancedAuthorizationHandler>();
 
 var app = builder.Build();
 
