@@ -21,11 +21,15 @@ namespace PracticalAPI.AppConfiguration
         public static IConfigurationBuilder AddAppConfigurationWithSentinelKey(this ConfigurationManager configuration)
         {
             var appConfigEndpoint = configuration.GetValue<string>("appConfigEndpoint");
+            if (string.IsNullOrWhiteSpace(appConfigEndpoint) || !Uri.TryCreate(appConfigEndpoint, UriKind.Absolute, out var appConfigUri))
+            {
+                throw new ArgumentException("Configuration value 'appConfigEndpoint' is missing or invalid.");
+            }
             var managedIdentity = configuration.GetValue<string>("ClientId");
 
             return configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(new Uri(appConfigEndpoint), new ChainedTokenCredential(
+                options.Connect(appConfigUri, new ChainedTokenCredential(
                     new VisualStudioCredential(),
                     new ManagedIdentityCredential(managedIdentity)
                 ));
@@ -60,11 +64,15 @@ namespace PracticalAPI.AppConfiguration
         public static IConfigurationBuilder AddAppConfiguration(this ConfigurationManager configuration)
         {
             var appConfigEndpoint = configuration.GetValue<string>("appConfigEndpoint");
+            if (string.IsNullOrWhiteSpace(appConfigEndpoint) || !Uri.TryCreate(appConfigEndpoint, UriKind.Absolute, out var appConfigUri))
+            {
+                throw new ArgumentException("Configuration value 'appConfigEndpoint' is missing or invalid.");
+            }
             var managedIdentity = configuration.GetValue<string>("ClientId");
 
             return configuration.AddAzureAppConfiguration(options =>
             {
-                options.Connect(new Uri(appConfigEndpoint), new ChainedTokenCredential(
+                options.Connect(appConfigUri, new ChainedTokenCredential(
                     new VisualStudioCredential(),
                     new ManagedIdentityCredential(managedIdentity)
                 ));
