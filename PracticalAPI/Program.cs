@@ -44,7 +44,7 @@ builder.Services.AddTransient<IWelcoming, Welcoming>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi();
 
 // I want to use request decompression to integrate with WMT 
 // Side note: => should be finish on AF HttpTrigger
@@ -67,8 +67,11 @@ app.UseExceptionHandler();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi(); //https://localhost:7075/openapi/v1.json
+    app.UseSwaggerUI(option =>
+    {
+        option.SwaggerEndpoint("/openapi/v1.json", "v1"); // https://localhost:7075/swagger/index.html
+    });
 }
 
 // Step 3: Use our custom middle in app
