@@ -83,7 +83,7 @@ app.UseHttpsRedirection();
 // With Sentinel key for refreshing configs
 //app.UseAzureAppConfiguration();
 
-app.UseRouting();
+// app.UseRouting(); // Not needed for top-level Map... registrations
 
 //Use Authentication and Authorization
 // app.UseAuthentication();
@@ -93,10 +93,7 @@ app.UseRouting();
 
 //app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapAuthor("/author");
-});
+app.MapControllers();
+app.MapAuthor("/author");
 
 app.Run();
